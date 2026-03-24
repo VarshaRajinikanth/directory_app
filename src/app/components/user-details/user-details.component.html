@@ -1,0 +1,46 @@
+<div class="user-details-container container">
+  <button class="back-btn" (click)="goBack()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+    Back to Directory
+  </button>
+
+  <div *ngIf="isLoading" class="loading">
+    <div class="spinner"></div> Loading user details...
+  </div>
+  
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="user && !isLoading && !error" class="profile-card">
+    <div class="profile-header">
+      <div class="profile-avatar">{{ user.name.charAt(0).toUpperCase() }}</div>
+      <div>
+        <h2>{{ user.name }}</h2>
+        <p class="username"><span>&#64;</span>{{ user.username }}</p>
+      </div>
+    </div>
+    
+    <div class="profile-body">
+      <div class="info-group">
+        <h3>Contact Information</h3>
+        <p><strong>Email:</strong> <a [href]="'mailto:' + user.email">{{ user.email }}</a></p>
+        <p><strong>Phone:</strong> {{ user.phone }}</p>
+        <p><strong>Website:</strong> <a [href]="'http://' + user.website" target="_blank">{{ user.website }}</a></p>
+      </div>
+      
+      <div class="info-group">
+        <h3>Company</h3>
+        <p><strong>Name:</strong> {{ user.company.name }}</p>
+        <p><strong>Catchphrase:</strong> <i>"{{ user.company.catchPhrase }}"</i></p>
+        <p><strong>Business Focus:</strong> {{ user.company.bs }}</p>
+      </div>
+
+      <div class="info-group">
+        <h3>Address</h3>
+        <p>{{ user.address.suite }} {{ user.address.street }}</p>
+        <p>{{ user.address.city }}, {{ user.address.zipcode }}</p>
+      </div>
+    </div>
+  </div>
+</div>

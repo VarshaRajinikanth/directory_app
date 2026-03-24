@@ -1,0 +1,42 @@
+<div class="user-list-container container">
+  <div class="header-section">
+    <h1>Users Directory</h1>
+    <div class="search-box">
+      <input 
+        type="text" 
+        [formControl]="searchControl" 
+        placeholder="Search users by name or email..." 
+        class="search-input" />
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="loading">
+    <div class="spinner"></div> Loading users...
+  </div>
+  
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div class="grid" *ngIf="!isLoading && !error">
+    <div *ngFor="let user of filteredUsers" class="user-card" [routerLink]="['/user', user.id]">
+      <div class="card-avatar">{{ user.name.charAt(0).toUpperCase() }}</div>
+      <div class="card-info">
+        <h3>{{ user.name }}</h3>
+        <p class="email">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          {{ user.email }}
+        </p>
+        <p class="company">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><path d="M9 22v-4h6v4"></path><path d="M8 6h.01"></path><path d="M16 6h.01"></path><path d="M12 6h.01"></path><path d="M12 10h.01"></path><path d="M12 14h.01"></path><path d="M16 10h.01"></path><path d="M16 14h.01"></path><path d="M8 10h.01"></path><path d="M8 14h.01"></path></svg>
+          {{ user.company.name }}
+        </p>
+      </div>
+    </div>
+    
+    <div *ngIf="filteredUsers.length === 0" class="no-results">
+      <div class="icon">🔍</div>
+      <p>No users found matching your search term.</p>
+    </div>
+  </div>
+</div>
